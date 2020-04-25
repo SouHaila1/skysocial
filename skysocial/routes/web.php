@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','registerController@index');
-Route::post('/','registerController@store');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('create','ckeditorController@index');
+Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
+Route::post('/create',[
+    'uses' =>'PostController@postCreatePost',
+    'as' => 'create'
+]);
+
+
+
+
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/profile',function(){
-    return view('profile');
-});
