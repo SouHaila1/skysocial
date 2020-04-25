@@ -23,6 +23,7 @@ Route::post('/create',[
     'uses' =>'PostController@postCreatePost',
     'as' => 'create'
 ]);
+Route::get('/','PostController@show');
 
 
 

@@ -34,12 +34,19 @@
             </div>
         </nav>    
 
-        <div class="container" style="background:#fafafa; height:100rem; width:50rem; margin-top:7rem;">
-             
-
-        </div>
-
-            
+        <div class="container" style="background:#fafafa; height:100rem; width: 50rem; margin-top:7rem;">
+            @foreach ($posts as $post)
+            <div class="card" style="width: 100%; margin-bottom:3rem; ">  
+                    <div class="card-body">
+                    <h5 class="card-title"> Posted By {{$post->user->name}}</h5>
+                    <p class="card-text">{{ $post->body}}</p>
+                    <p> <img src=" {{asset('uploads/images/'. $post->image)}} " style="height:30rem; width:100%;" alt="image"> </p>
+                    <p>{{ $post->created_at}}</p>
+                    
+                    </div>
+                   
+            </div>
+            @endforeach
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
