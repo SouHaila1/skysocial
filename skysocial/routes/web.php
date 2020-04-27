@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    return view(welcome);
 });
 
 Route::get('create','ckeditorController@index');
@@ -35,4 +35,7 @@ Route::post('/like', [
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/profile', 'ProfileController@index');
