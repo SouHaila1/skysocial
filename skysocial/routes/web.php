@@ -25,7 +25,10 @@ Route::post('/create',[
 ]);
 Route::get('/','PostController@show');
 
-
+Route::post('/like', [
+    'uses' => 'PostController@postLikePost',
+    'as' => 'like'
+]);
 
 
 
