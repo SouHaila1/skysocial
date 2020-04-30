@@ -8,7 +8,7 @@
                 <div class="card-header" style="background:#87cefa;color:#fff ; font-weight:bold">{{ __('Sign Up') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -45,6 +45,26 @@
                                 <input id="email-confirm" type="email" class="form-control" name="email_confirmation" required autocomplete="new-email">
                             </div>
                         </div>
+
+
+                        
+                        <div class="form-group row">
+                            <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}
+                            <span class="text-small text-info">*Not required</span>
+                            </label>
+
+                            <div class="col-md-6">
+                                <input  type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" >
+
+                                @error('avatar')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

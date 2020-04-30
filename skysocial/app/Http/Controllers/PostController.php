@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Post;
-use App\like;
+use App\Like;
 use Illuminate\Http\Request;
 
 
@@ -10,16 +10,15 @@ class PostController extends Controller
 {
     public function show()
     {
-        $posts = Post::all(); //fatsh all posts 
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view('welcome', ['posts' => $posts]);
     }
 
-    public function postCreatePost(Request $request)
-    {
-        $post = new Post;
-        $post->body = $request->summaryckeditor;
-        //image:
-        if($request->hasfile('image')){
+    public function postCreatePost(Request $request){
+        $post = new Post();
+        $post->body = $request['body'];
+         //image:
+         if($request->hasfile('image')){
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '-' . $extension;
@@ -30,11 +29,12 @@ class PostController extends Controller
             return $request;
             $post->image = '';
         }
-
-
         $request->user()->posts()->save($post);
-        return redirect('/');
+        return redirect()->route('welcome');
     }
+   
+
+  
 
     public function postLikePost(Request $request)
     {
@@ -42,7 +42,7 @@ class PostController extends Controller
         $is_like = $request['isLike'] === 'true';
         $update = false;
         $post = Post::find($post_id);
-        if(! $post){
+        if (!$post) {
             return null;
         }
         $user = Auth::user();
@@ -55,7 +55,7 @@ class PostController extends Controller
                 return null;
             }
         } else {
-            $like = new like();
+            $like = new Like();
         }
         $like->like = $is_like;
         $like->user_id = $user->id;
@@ -66,6 +66,5 @@ class PostController extends Controller
             $like->save();
         }
         return null;
-
     }
 }

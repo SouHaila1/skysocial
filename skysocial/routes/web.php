@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,22 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function(){
-    return view(welcome);
+    return view('welcome');
 });
 
-Route::get('create','ckeditorController@index');
-Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
-Route::post('/create',[
-    'uses' =>'PostController@postCreatePost',
-    'as' => 'create'
+
+
+Route::get('/', [
+    'uses' => 'PostController@show',
+    'as' => 'welcome',
+    'middleware' => 'auth'
 ]);
-Route::get('/','PostController@show');
+
+Route::post('/createpost', [
+    'uses' => 'PostController@postCreatePost',
+    'as' => 'post',
+    'middleware' => 'auth'
+]);
+
+
 
 Route::post('/like', [
     'uses' => 'PostController@postLikePost',
     'as' => 'like'
 ]);
-
 
 
 
