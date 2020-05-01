@@ -38,6 +38,13 @@ Route::post('/like', [
     'as' => 'like'
 ]);
 
+Route::get('/delete-post/{post_id}', [
+    'uses' => 'PostController@getDeletePost',
+    'as' => 'delete',
+    'middleware' => 'auth'
+]);
+
+Route::post('/comments','PostController@addcomment');
 
 
 Auth::routes();

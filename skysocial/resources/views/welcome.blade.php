@@ -15,7 +15,6 @@
      }  
        #upload {
     opacity: 0;
-
         }
 #upload-label {
     position: absolute;
@@ -23,6 +22,7 @@
     left: 1rem;
     transform: translateY(-50%);
 }
+
    </style>
     </head>
     <body style="background:#fafafa; overflow-x: hidden;">
@@ -34,8 +34,8 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img src=" {{asset(Auth::user()->avatar)}} " style="width:3rem; height:27px; border-radius:50%; margin-right:3px" alt="">
-                         <span style="color:#fff">{{ Auth::user()->name }} </span> <span class="caret"></span>
+                            <img src=" {{asset(Auth::user()->avatar)}} " style="width:2.2rem; height:27px; border-radius:50%; margin-right:3px" alt="">
+                         <span  style="color:#fff; font-weight:bold;">{{ Auth::user()->name }} </span> <span class="caret" ></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -78,17 +78,17 @@
                         <a class="nav-link" href="#"><i class="fas fa-image" style="font-size: 19px; color: #87cefa;">&nbsp; &nbsp;&nbsp; &nbsp;Photos</i></a>
                     </li>
                     <li class="nav-item mb-3 ">
-                        <a class="nav-link" href="#"><i class="fas fa-pencil-alt" style="font-size: 19px; color: #87cefa;">&nbsp; &nbsp;&nbsp; &nbsp;Post</i></a>
+                        <a class="nav-link" href="#post"><i class="fas fa-pencil-alt" style="font-size: 19px; color: #87cefa;">&nbsp; &nbsp;&nbsp; &nbsp;Post</i></a>
                     </li>
                   </ul>
             </div>
              <div class="container" style="background:#fff; width: 16rem; margin-top:4rem; border-radius:.4rem">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2 mt-3">
-                        <a class="nav-link" href="/profile"> <i class="fas fa-cog" style="font-size: 19px; color: #87cefa;"> &nbsp; &nbsp;&nbsp; &nbsp;Settings</i></a>
+                        <a class="nav-link" href="#"> <i class="fas fa-cog" style="font-size: 19px; color: #87cefa;"> &nbsp; &nbsp;&nbsp; &nbsp;Settings</i></a>
                     </li>
                     <li class="nav-item mb-2 ">
-                        <a class="nav-link" href="/"><i class="fas fa-user-friends" style="font-size: 19px; color: #87cefa;">&nbsp; &nbsp;&nbsp; &nbsp;Find Friends</i></a>
+                        <a class="nav-link" href="#"><i class="fas fa-user-friends" style="font-size: 19px; color: #87cefa;">&nbsp; &nbsp;&nbsp; &nbsp;Find Friends</i></a>
                     </li>
                 </ul>   
              </div>
@@ -97,8 +97,8 @@
         <!--Second div-->
         <div class="col">
             <div class="container" style=" width: 40rem; margin-top:4rem;"> 
-                <form action="{{route('post')}}" method="POST" enctype="multipart/form-data">
-            @csrf
+                <form action="{{route('post')}}" method="POST" enctype="multipart/form-data" id="post">
+               @csrf
                     <textarea class="form-control"  name="body" style="width:38rem; height:6rem; border:none; " placeholder="Write Post"></textarea>
                             <!-- Upload image input-->
                             <div class="input-group mb-3 px-2 py-2  bg-white shadow-sm image">
@@ -114,21 +114,59 @@
                 @foreach ($posts as $post)
                     <div class="card post" style="width: 100%; margin-bottom:1.2rem; ">  
                             <div class="card-body">
-                            <h5 class="card-title">  {{$post->user->name}}</h5>
-                            <p class="card-text">{{ $post->body}}</p>
-                            <p> <img src=" {{asset('uploads/images/'. $post->image)}} " style="height:30rem; width:100%;" alt="image"> </p>
-                        <!-- <p>{{ $post->created_at}}</p>-->
-                            <div class="interaction">
-                                <a href="#" class="like" style="font-size: 19px; color: #87cefa; margin-right:3rem;">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a> |
-                                <a href="#" class="like" style="font-size: 19px; color: #87cefa; margin-right:3rem;">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
-                            </div>
-                            <div>
-                                @comments(['model' => $post])
-                            </div>
+                                <h5 class="card-title" >   {{$post->user->name}}
+                                     @if (Auth::user() == $post->user)
+                                    <a href="{{ route('delete', ['post_id' => $post->id]) }}"><i class="fas fa-times" style=" color: #87cefa; margin-left:30.6rem;"></i></a>
+                                    @endif
+                                </h5>
+                                <p class="card-text">{{ $post->body}}</p>
+                                @if ($post->image)
+                                <p> <img src=" {{asset('uploads/images/'. $post->image)}} " style="height:30rem; width:100%;" alt="image"> </p>
+                                @endif
+                            <!-- -->
+                                <div class="interaction">
+                                    <a href="#" class="like" style="font-size: 19px; color: #87cefa; margin-right:3rem;">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a> |
+                                    <a href="#" class="like" style="font-size: 19px; color: #87cefa; margin-right:3rem;">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
+                                </div>
+                               
+                          <div class="comments">
+                                    <ul class="list-group">
+                                    @foreach ($post->comments as $comment)
+                                        <li class="list-group-item">
+                                            <strong>
+                                                {{ $comment->created_at}}
+                                            </strong>
+                                            {{ $comment->body }}
+                                        </li>
+                                          
+
+                                    @endforeach
+                                </ul>
+                                </div>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <form action="{{route('comments')}}" method="POST">
+                                            <div class="form-group">
+                                                <textarea name="body" placeholder="Your comment" cols="30" rows="10"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">add comment</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                
+                                
                             </div>    
                     </div>
                 @endforeach
             </div>
+            <div class="container" style=" width: 40rem; margin-top:4rem;">
+            </div>  
+            <div class="container" style=" width: 40rem; margin-top:4rem;">
+            </div>
+            
         </div>
         <!--Third div-->
         <div class="col">

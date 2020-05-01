@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\Like;
+use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class PostController extends Controller
@@ -25,15 +27,21 @@ class PostController extends Controller
             $file->move('uploads/images/', $filename);
             $post->image = $filename;
         }
-        else{
-            return $request;
-            $post->image = '';
-        }
+        
         $request->user()->posts()->save($post);
         return redirect()->route('welcome');
     }
    
+    public function getDeletePost($post_id)
+    {
+        $post = Post::where('id', $post_id)->first();
+        if (Auth::user() != $post->user) {
+            return redirect()->back();
 
+        }
+        $post->delete();
+        return redirect()->route('welcome');
+    }
   
 
     public function postLikePost(Request $request)
@@ -66,5 +74,14 @@ class PostController extends Controller
             $like->save();
         }
         return null;
+    }
+    
+    public function addcomment(Post $post){
+        Comment::create([
+            'body' => request('body'),
+            'post_id' => $post->id
+        ]);
+
+        return back();
     }
 }

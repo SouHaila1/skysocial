@@ -3,11 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravelista\Comments\Commentable;
 
 class Post extends Model
 {
-    use Commentable;
+    
 
     protected $fillable = [
         'body', 'user_id', 'image','created_at',
@@ -21,5 +20,10 @@ class Post extends Model
     public function likes()
     {
         return $this->hasMany('App\Like');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 }
