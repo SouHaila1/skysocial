@@ -1,12 +1,5 @@
-<?php
-$con = mysqli_connect("localhost","root","","skysocial");
-
-if (mysqli_connect_errno()) {
-    echo "Failed to connect".mysqli_connect_errno();
-}
-
-$query = mysqli_query($con,"INSERT INTO test VALUES ('2','HANN')");
-
+<?php  
+require 'config/config.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +8,27 @@ $query = mysqli_query($con,"INSERT INTO test VALUES ('2','HANN')");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkySocial</title>
+    <style>
+        body{
+            margin:0px;
+            margin-top:0px;
+            padding:0px;
+            padding-top:0px;
+        }
+        
+
+    </style>
 </head>
 <body>
-  
+<nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background:#87cefa ">
+            <div class="container">
+                <ul class="navbar-nav mr-auto">
+                    <img src="assets/images/logo/logoWelcome.png" style="width:15rem; ">  
+                </ul>
+                <ul class="navbar-nav ml-auto">
+
+                </ul>
+                    
+            </div>
 </body>
 </html>
