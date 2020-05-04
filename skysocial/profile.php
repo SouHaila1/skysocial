@@ -2,7 +2,7 @@
 require('includes/header.php');
 
 if(isset($_GET['profile_username'])){
-    
+    $username = $_GET['profile_username'];
     $user_details_query =  mysqli_query($con, "SELECT * FROM users WHERE username = '$username'");
     $user_array = mysqli_fetch_array($user_details_query);
 }
@@ -21,7 +21,7 @@ if(isset($_GET['profile_username'])){
                     </a>
                 </div>
                 <div class="profile-name">
-                    <h2><?php echo $user['username']?></h2>
+                    <h2><?php $username ?></h2>
                 </div>
                 
                 <div class="fb-profile-block-menu">
