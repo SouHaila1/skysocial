@@ -8,8 +8,15 @@ require 'config/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkySocial</title>
+    
     <style>
         body{
+            margin:0px;
+            margin-top:0px;
+            padding:0px;
+            padding-top:0px;
+        }
+        .navbar{
             margin:0px;
             margin-top:0px;
             padding:0px;
