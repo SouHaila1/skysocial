@@ -21,7 +21,7 @@ if(isset($_GET['profile_username'])){
                     </a>
                 </div>
                 <div class="profile-name">
-                    <h2><?php $username ?></h2>
+                   <h2><?php $username ?></h2>
                 </div>
                 
                 <div class="fb-profile-block-menu">
