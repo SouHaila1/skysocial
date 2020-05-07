@@ -160,12 +160,7 @@ class Post {
 					$user_to = "to <a href='" . $row['user_to'] ."'>" . $user_to_name . "</a>";
 				}
 
-				//Check if user who posted, has their account closed
-				$added_by_obj = new User($this->con, $added_by);
-				if($added_by_obj->isClosed()) {
-					continue;
-				}
-
+				
 				$user_logged_obj = new User($this->con, $userLoggedIn);
 				if($user_logged_obj->isFriend($added_by)){
 

@@ -18,5 +18,12 @@ $(document).ready(function() {
 
 	});
 
+	function deleteMessage(messageId, element) {
+
+		$.post("includes/handlers/ajax_delete_message.php", {id:messageId}, function(data) {
+			$(element).closest(".message").text("Message deleted");
+		});	
+	}
+	
 
 });
