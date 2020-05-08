@@ -59,6 +59,7 @@ body {
 
 .post_form {
 	width: 100%;
+	
 }
 
 .post_form textarea {
@@ -93,7 +94,7 @@ textarea:focus {
 	right: 21px;
 	
 }
-}
+
 
 .post_form input[type="submit"]:active {
 	padding: 5px 4px 4px 5px;
@@ -143,7 +144,7 @@ textarea:focus {
 #comment_form input[type="submit"] {
 	border:none;
 	background-color: #20AAE5;
-	color: #156588;
+	color: #fff;
 	border-radius: 5px;
 	width: 13%;
 	height: 35px;
