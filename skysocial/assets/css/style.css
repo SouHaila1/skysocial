@@ -18,6 +18,7 @@ body {
 	padding: 0 10px;
 	width: 75%;
 	min-width: 950px;
+	background-image: url(../images/backgrounds/white.jpg);
 }
 
 .column {

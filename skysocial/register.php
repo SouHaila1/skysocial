@@ -13,6 +13,7 @@ require 'includes/form_handlers/login_handler.php';
 	<link rel="stylesheet" href="assets/css/register_style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="assets/js/register.js"></script>
+	
 </head>
 <body>
 
