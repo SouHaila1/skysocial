@@ -1,6 +1,6 @@
 <?php 
 include("includes/header.php");
-require("includes/classes/User.php");
+require_once("includes/classes/User.php");
 
 if(isset($_GET['profile_username'])) {
 	$username = $_GET['profile_username'];
@@ -67,15 +67,37 @@ if(isset($_POST['respond_request'])) {
 	border: none;
 	color: #fff;
 }
+.danger {
+	background-color: #e74c3c;
+}
+.warning {
+	background-color: #f0ad4e;
+}
+.default {
+	background-color: #bdc3c7;
+}
+.success {
+	background-color: #2ecc71;
+}
+.info {
+	background-color: #3498db;
+}
 .deep_blue {
 	background-color: #2980b9;
+}
+.profile_main_column {
+	min-width: 675px;
+	float: left;
+	width: 70%;
+	z-index: -1;
+
 }
 </style>
 	 
 
 <div class="wrapper">
 <div class="profile_left">
- 		<img src="<?php echo $user_array['profile_pic']; ?>" id="profile_img">
+ 		<img src="<?php echo $user_array['profile_pic']; ?>">
 
  		<div class="profile_info">
  			<p><?php echo "Posts: " . $user_array['num_posts']; ?></p>
@@ -110,6 +132,8 @@ if(isset($_POST['respond_request'])) {
 
  			?>
  		</form>
+ 		<input type="submit" class="deep_blue" data-toggle="modal" data-target="#post_form" value="Post Something">
+
     <?php  
     if($userLoggedIn != $username) {
       echo '<div class="profile_info_bottom">';
@@ -119,14 +143,16 @@ if(isset($_POST['respond_request'])) {
 
 
     ?>
-				<!-- Button trigger modal -->
-				<input type="submit" class="deep_blue" data-toggle="modal" data-target="#post_form" value="Post Something">
 
  	</div>
-	<div class="main_column column">
-		<?php echo $username ; ?>
 
 
+	<div class="profile_main_column column">
+		<div class="posts_area"></div>
+    <img id="loading" src="assets/images/icons/loading.gif">
+
+
+	</div>
 
 <!-- Modal -->
 <div class="modal fade" id="post_form" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
@@ -158,6 +184,69 @@ if(isset($_POST['respond_request'])) {
     </div>
   </div>
 </div>
+</div>
 
+
+<script>
+  var userLoggedIn = '<?php echo $userLoggedIn; ?>';
+  var profileUsername = '<?php echo $username; ?>';
+
+  $(document).ready(function() {
+
+    $('#loading').show();
+
+    //Original ajax request for loading first posts 
+    $.ajax({
+      url: "includes/handlers/ajax_load_profile_posts.php",
+      type: "POST",
+      data: "page=1&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername,
+      cache:false,
+
+      success: function(data) {
+        $('#loading').hide();
+        $('.posts_area').html(data);
+      }
+    });
+
+    $(window).scroll(function() {
+      var height = $('.posts_area').height(); //Div containing posts
+      var scroll_top = $(this).scrollTop();
+      var page = $('.posts_area').find('.nextPage').val();
+      var noMorePosts = $('.posts_area').find('.noMorePosts').val();
+
+      if ((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
+        $('#loading').show();
+
+        var ajaxReq = $.ajax({
+          url: "includes/handlers/ajax_load_profile_posts.php",
+          type: "POST",
+          data: "page=" + page + "&userLoggedIn=" + userLoggedIn + "&profileUsername=" + profileUsername,
+          cache:false,
+
+          success: function(response) {
+            $('.posts_area').find('.nextPage').remove(); //Removes current .nextpage 
+            $('.posts_area').find('.noMorePosts').remove(); //Removes current .nextpage 
+
+            $('#loading').hide();
+            $('.posts_area').append(response);
+          }
+        });
+
+      } //End if 
+
+      return false;
+
+    }); //End (window).scroll(function())
+
+
+  });
+
+  </script>
+
+
+
+
+
+	</div>
 </body>
 </html>

@@ -275,7 +275,24 @@ textarea:focus {
     display: block;
     margin: 5px auto;
 }
-
+.danger {
+	background-color: #e74c3c;
+}
+.warning {
+	background-color: #f0ad4e;
+}
+.default {
+	background-color: #bdc3c7;
+}
+.success {
+	background-color: #2ecc71;
+}
+.info {
+	background-color: #3498db;
+}
+.deep_blue {
+	background-color: #0043f0;
+}
 
 
 

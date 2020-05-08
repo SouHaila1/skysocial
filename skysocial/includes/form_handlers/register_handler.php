@@ -110,7 +110,7 @@ if(isset($_POST['register_button'])){
 		}
 
 		//Profile picture assignment
-		$rand = rand(1, 2, 3, 4, 5, 6 ,7 ,8, 9 ,10 ,11, 12 ,13, 14 ,15,16); //Random number between 1 and 2
+		$rand = rand(1, 2); //Random number between 1 and 2
 
 		if($rand == 1)
 			$profile_pic = "assets/images/profile_pics/defaults/head_alizarin.png";

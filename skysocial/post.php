@@ -39,13 +39,4 @@ else {
 
 		</div>
 
-	</div><?php  
-include("includes/header.php");
-
-if(isset($_GET['id'])) {
-	$id = $_GET['id'];
-}
-else {
-	$id = 0;
-}
-?>
+	</div>
