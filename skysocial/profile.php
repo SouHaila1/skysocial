@@ -145,14 +145,30 @@ if(isset($_POST['respond_request'])) {
     ?>
 
  	</div>
+	 <div class="main_column column">
+		<form class="post_form" action="index.php" method="POST" enctype="multipart/form-data">
+			
+			<textarea name="post_text" id="post_text" placeholder="Got something to say?"></textarea>
+			<input type="file" name="fileToUpload" id="fileToUpload">
+			<input type="submit" name="post" id="post_button" value="Post">
+			<hr>
+
+		</form>
+
+		<div class="posts_area"></div>
+		<!-- <button id="load_more">Load More Posts</button> -->
+		<img id="loading" src="assets/images/icons/loading.gif">
 
 
+	</div>
+
+<!--
 	<div class="profile_main_column column">
 		<div class="posts_area"></div>
     <img id="loading" src="assets/images/icons/loading.gif">
 
 
-	</div>
+	</div>-->
 
 <!-- Modal -->
 <div class="modal fade" id="post_form" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
