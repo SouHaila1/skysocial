@@ -6,15 +6,17 @@ require 'includes/form_handlers/login_handler.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkySocial</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SkySocial</title>
 	<link rel="stylesheet" href="assets/css/register_style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="assets/js/register.js"></script>
-	
+
 </head>
+
 <body>
 
 	<?php  
@@ -75,8 +77,8 @@ require 'includes/form_handlers/login_handler.php';
 					?>" required>
 					<br>
 					<?php if(in_array("Your first name must be between 2 and 25 characters<br>", $error_array)) echo "Your first name must be between 2 and 25 characters<br>"; ?>
-					
-					
+
+
 
 
 					<input type="text" name="reg_lname" placeholder="Last Name" value="<?php 
@@ -128,4 +130,5 @@ require 'includes/form_handlers/login_handler.php';
 
 
 </body>
+
 </html>

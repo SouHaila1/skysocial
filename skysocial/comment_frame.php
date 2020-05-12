@@ -1,16 +1,17 @@
 <html>
+
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
+
 <body>
 
 	<style type="text/css">
-	* {
-		font-size: 12px;
-		font-family: Arial, Helvetica, Sans-serif;
-	}
-
+		* {
+			font-size: 12px;
+			font-family: Arial, Helvetica, Sans-serif;
+		}
 	</style>
 
 	<?php  
@@ -33,9 +34,9 @@
 		function toggle() {
 			var element = document.getElementById("comment_section");
 
-			if(element.style.display == "block") 
+			if (element.style.display == "block")
 				element.style.display = "none";
-			else 
+			else
 				element.style.display = "block";
 		}
 	</script>
@@ -64,7 +65,8 @@
 		echo "<p>Comment Posted! </p>";
 	}
 	?>
-	<form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id; ?>" method="POST">
+	<form action="comment_frame.php?post_id=<?php echo $post_id; ?>" id="comment_form"
+		name="postComment<?php echo $post_id; ?>" method="POST">
 		<textarea name="post_body"></textarea>
 		<input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
 	</form>
@@ -152,13 +154,14 @@
 
 
 			?>
-			<div class="comment_section">
-				<a href="<?php echo $posted_by?>" target="_parent"><img src="<?php echo $user_obj->getProfilePic();?>" title="<?php echo $posted_by; ?>" style="float:left;" height="30"></a>
-				<a href="<?php echo $posted_by?>" target="_parent"> <b> <?php echo $user_obj->getFirstAndLastName(); ?> </b></a>
-				&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $time_message . "<br>" . $comment_body; ?> 
-				<hr>
-			</div>
-			<?php
+	<div class="comment_section">
+		<a href="<?php echo $posted_by?>" target="_parent"><img src="<?php echo $user_obj->getProfilePic();?>"
+				title="<?php echo $posted_by; ?>" style="float:left;" height="30"></a>
+		<a href="<?php echo $posted_by?>" target="_parent"> <b> <?php echo $user_obj->getFirstAndLastName(); ?> </b></a>
+		&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $time_message . "<br>" . $comment_body; ?>
+		<hr>
+	</div>
+	<?php
 
 		}
 	}
@@ -174,4 +177,5 @@
 
 
 </body>
+
 </html>
