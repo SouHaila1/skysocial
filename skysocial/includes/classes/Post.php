@@ -115,13 +115,27 @@ class Post {
 					}
 				}
 
+				foreach ($keywords as $value) {
+				    $this->calculateTrend(ucfirst($value));
+				}
 
              }
 
 		}
 	}
 
+	public function calculateTrend($term) {
 
+		if($term != '') {
+			$query = mysqli_query($this->con, "SELECT * FROM trends WHERE title='$term'");
+
+			if(mysqli_num_rows($query) == 0)
+				$insert_query = mysqli_query($this->con, "INSERT INTO trends(title,hits) VALUES('$term','1')");
+			else 
+				$insert_query = mysqli_query($this->con, "UPDATE trends SET hits=hits+1 WHERE title='$term'");
+		}
+
+	}
 
 	public function loadPostsFriends($data, $limit) {
 
@@ -160,7 +174,12 @@ class Post {
 					$user_to = "to <a href='" . $row['user_to'] ."'>" . $user_to_name . "</a>";
 				}
 
-				
+				//Check if user who posted, has their account closed
+				$added_by_obj = new User($this->con, $added_by);
+				if($added_by_obj->isClosed()) {
+					continue;
+				}
+
 				$user_logged_obj = new User($this->con, $userLoggedIn);
 				if($user_logged_obj->isFriend($added_by)){
 
