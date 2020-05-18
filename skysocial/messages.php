@@ -99,6 +99,7 @@ if(isset($_POST['post_message'])) {
 		float: left;
 		margin-bottom: 20px;
 	}
+	
 </style>
 <div class="user_details column">
 		<a href="<?php echo $userLoggedIn; ?>">  <img src="<?php echo $user['profile_pic']; ?>"> </a>
